@@ -1,5 +1,5 @@
-import {createStore, combineReducers} from 'redux';
-
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
 import {reducer as todoReducer} from './todos';
 import {reducer as filterReducer} from './filter';
 
@@ -12,4 +12,14 @@ const reducer = combineReducers({
   filter: filterReducer
 });
 
-export default createStore(reducer);
+// 添加插件
+const middlewares = [];
+if (process.env.NODE_ENV !== 'production') {
+  // 没有default()会报错
+  middlewares.push(require('redux-immutable-state-invariant').default());
+}
+
+// 第三个参数用于扩展，加入redux支持
+export default createStore(reducer, {}, composeWithDevTools(
+  applyMiddleware(...middlewares),
+));

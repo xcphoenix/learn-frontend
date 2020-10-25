@@ -1,4 +1,7 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
+import {addTodo} from "../action";
+import {connect} from "react-redux";
 
 class AddTodo extends Component {
 
@@ -10,10 +13,12 @@ class AddTodo extends Component {
   }
 
   refInput(node) {
+    // 获取dom元素
     this.input = node;
   }
 
   onSubmit(ev) {
+    // 取消浏览器的默认行为
     ev.preventDefault();
 
     const input = this.input;
@@ -40,7 +45,15 @@ class AddTodo extends Component {
 }
 
 AddTodo.propTypes = {
-  onAdd: PropTypes
+  onAdd: PropTypes.func.isRequired
 }
 
-export default AddTodo;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAdd: (text) => {
+      dispatch(addTodo(text));
+    }
+  }
+};
+
+export default connect(null, mapDispatchToProps)(AddTodo);

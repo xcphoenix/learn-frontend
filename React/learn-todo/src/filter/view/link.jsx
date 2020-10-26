@@ -10,6 +10,7 @@ const Link = ({active, children, onClick}) => {
     )
   } else {
     return (
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <a href="#" className={"filter not-selected"} onClick={
         (ev) => {
           ev.preventDefault();

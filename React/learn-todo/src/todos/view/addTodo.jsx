@@ -8,32 +8,36 @@ class AddTodo extends Component {
   constructor(props, content) {
     super(props, content);
 
-    this.refInput = this.refInput.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      value: ''
+    };
   }
 
-  refInput(node) {
-    // 获取dom元素
-    this.input = node;
+  onInputChange(event) {
+    this.setState({
+      value: event.target.value
+    });
   }
 
   onSubmit(ev) {
     // 取消浏览器的默认行为
     ev.preventDefault();
 
-    const input = this.input;
-    if (!input.value.trim()) {
+    const inputValue = this.state.value;
+    if (!inputValue.trim()) {
       return ;
     }
-    this.props.onAdd(input.value);
-    input.value = '';
+    this.props.onAdd(inputValue);
+    this.setState({value: ''});
   }
 
   render() {
     return (
       <div className={"add-todo"}>
         <form onSubmit={this.onSubmit}>
-          <input className={"new-todo"} ref={this.refInput}/>
+          <input className={"new-todo"} onChange={this.onInputChange} value={this.state.value}/>
           <button className={'add-on'} type={"submit"}>
             添加
           </button>

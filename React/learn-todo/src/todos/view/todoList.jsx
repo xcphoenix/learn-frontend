@@ -8,7 +8,7 @@ import TodoItem from "./todoItem";
 import { createSelector } from "reselect";
 
 // 解构赋值+箭头函数
-const TodoList = ({ todos, onToggleTodo, onRemoveTodo }) => {
+const TodoList = ({ todos }) => {
   return (
     <ul className={"todo-list"}>
       {
